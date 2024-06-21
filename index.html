@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tell Wasabi to connect to a specific coordinator.</title>
+</head>
+<body>
+    <h1>Tell Wasabi to connect to a specific coordinator.</h1>
+    <h2>Wasabi must be opened to use this command and will quit directly</h2>
+    <button id="sendRequest">Send Request</button>
+
+    <script>
+        document.getElementById('sendRequest').addEventListener('click', function() {
+            fetch('http://localhost:37128', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: "coordinator:uri.uri:identifier:0.0"
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Response from server:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
