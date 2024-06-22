@@ -6,29 +6,39 @@
 <body>
     <h1>Tell Wasabi to connect to a specific coordinator.</h1>
     <h2>Wasabi must be opened to use this command and will quit directly</h2>
-
     <!-- Input fields for customization -->
     <label for="uriInput">URI:</label>
     <input type="text" id="uriInput" value="uri.uri"><br><br>
-
     <label for="identifierInput">Identifier:</label>
     <input type="text" id="identifierInput" value="identifier"><br><br>
-
     <label for="feeInput">Fee %:</label>
     <input type="text" id="feeInput" value="0.0"><br><br>
-
     <button id="sendRequest">Send Request</button>
-
+    <p id="finalString"></p>
     <script>
+        function updateFinalString() {
+            var uri = document.getElementById('uriInput').value;
+            var identifier = document.getElementById('identifierInput').value;
+            var fee = document.getElementById('feeInput').value;
+            var finalString = "coordinator:" + uri + ":" + identifier + ":" + fee + "!";
+            document.getElementById('finalString').innerHTML = "Or paste this string to Wasabi's search box: " + finalString;
+        }
+
+        // Update final string when inputs change
+        document.getElementById('uriInput').addEventListener('input', updateFinalString);
+        document.getElementById('identifierInput').addEventListener('input', updateFinalString);
+        document.getElementById('feeInput').addEventListener('input', updateFinalString);
+
+        // Initial update
+        updateFinalString();
+
         document.getElementById('sendRequest').addEventListener('click', function() {
             // Get values from input fields
             var uri = document.getElementById('uriInput').value;
             var identifier = document.getElementById('identifierInput').value;
             var fee = document.getElementById('feeInput').value;
-
             // Construct the body to be sent
-            var bodyContent = "coordinator:" + uri + ":" + identifier + ":" + fee;
-
+            var bodyContent = "coordinator:" + uri + ":" + identifier + ":" + fee + "!";
             // Send POST request
             fetch('http://localhost:37128', {
                 method: 'POST',
