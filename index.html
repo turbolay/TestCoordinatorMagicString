@@ -20,7 +20,6 @@
             const textToCopy = 'name=My%20Little%20Coordinator&network=main&coordinatorUri=https://api.test.com&coordinationFeeRate=0.001&readMore=https://test.com&absoluteMinInputCount=13';
             
             navigator.clipboard.writeText(textToCopy).then(function() {
-                alert('Text copied to clipboard');
             }, function(err) {
                 console.error('Could not copy text: ', err);
             });
